@@ -1,103 +1,50 @@
-var housey = 250
-var housex = 150
-// for animation
-var move = 0
-var fly = 0
-
-
-
-
-
-
-
+var x = 50
+var y =150
+var slide = 1
+var up = 0.5
+var melt = 0
+var xx = 0
+var snowfly = 800
+var snowfall = 400
 function setup() {
   // put setup code here
-  createCanvas(800,600);
-background(140, 208, 237)
+  createCanvas(800,800);
 }
 
+
 function draw() {
+  // put drawing code here
+  background(x-50, 29, 46);
 
-  background(140, 208, 237)
+// The ground
+fill(46, 39, 25);
+rect(0, 700, 800, 800);
 
-// backyard
-strokeWeight(1)
-fill(27, 125, 53)
-rect(housex-housex,housey*2/1.5,housex*6,housey*4)
-
-
-//cloud
+// The sun
+fill(143, 21, 21);
+ellipse(x+xx, y, 100, 100);
+y=y-up
+x=x*2/1.98
+if(y<50){up=-up}
+// The snowman
+melt=170-x*0.5
+//stopping the melt
+if (melt<0){x=338}
+//making the sun continue moving
+if (x>337){xx=xx+2}
+print(melt);
+fill(245, 226, 226);
+ellipse(200, 700, 150, 170-x*0.5);
+ellipse(200, 600+x*0.3, 100, 120-x*0.35);
 strokeWeight(0)
-fill(255,255,255)
-ellipse(housex*2/1.5+move,housey/2,housex/2,housex/2)
-ellipse(housex*2/1.3+move,housey/2.4,housex/2,housex/2)
-ellipse(housex*2/1.3+move,housey/1.8,housex/2,housex/2)
-ellipse(housex*2/1.1+move,housey/1.8,housex/2,housex/2)
-ellipse(housex*2/1.1+move,housey/2.4,housex/2,housex/2)
-ellipse(housex*2+move,housey/2,housex/2,housex/2)
+ellipse(200, 520+x*0.55, 75, 90-x*0.27);
 
-ellipse(housex/100+move,housey,housex/4,housex/4)
-ellipse(housex/10+move,housey-housey/12,housex/4,housex/4)
-ellipse(housex/10+move,housey+housey/12,housex/4,housex/4)
-ellipse(housex/6+move,housey,housex/3,housex/3)
-
-ellipse(housex*3.5+move,housey,housex/2,housex/2)
-ellipse(housex*3.8+move,housey,housex/2,housex/2)
-ellipse(housex*3.7+move,housey*2/1.8,housex/2,housex/2)
-ellipse(housex*4+move,housey*2/1.8,housex/2,housex/2)
+//flying snoball when clicked
+  ellipse(snowfly,snowfall,20,20)
 
 
-move=move+0.1
+}
 
-// bird
-strokeWeight(7)
-noFill()
-arc(housex+fly, housey/1.5-fly/4, 35, 60, housex/6.6, housex)
-arc(housex*2/1.65+fly, housey/1.50-fly/4, 35, 60, housex/6.6, housex)
-
-fly++
-//crate
-strokeWeight(3)
-fill(168, 126, 10)
-triangle(housex*4/1.05,housey*2/1.25,housex*4,housey*2/1.3,housex*4,housey*2/1.18)
-rect(housex*4/1.05, housey*2/1.4, housex*5/10, housey/6)
-rect(housex*4, housey*2/1.3, housex*5/10, housey/6)
-
-  // house body and colour
-  strokeWeight(1)
-  fill(100,52,52)
-rect(housex,housey,housex*2,housey+50)
-
-//roof of house
-fill(150,30,30)
-strokeWeight(3)
-triangle(housex,housey,housex*3,housey,housex*2,housey-housey*2/5)
-
-//window
-fill(255,255,255)
-strokeWeight(10)
-rect(housex+housex*2/10,housey+housey*2/8,housex-housex/4,housey-housey/1.7)
-strokeWeight(1)
-
-//window divides
-strokeWeight(3)
-line(housex+housex*2/3.5,housey+housey*2/3,housex+housex*2/3.5,housey+housey/4)
-line(housex+housex*2/10,housey+housey*2/4.5,housex+housex*2/2.2,housey+housey*2/4.5)
-//door
-fill(115, 95, 14)
-rect(housex+housex*2/1.8,housey+housey/2,housex/1.5,housey/1.43)
-strokeWeight(10)
-point(housex*3/1.3,housey*2/1.15)
-//road
-strokeWeight(7)
-fill(125,125,125)
-rect(housex-housex,housey*2,housex*6,housey)
-//sun
-strokeWeight(0)
-fill(250, 242, 5)
-ellipse(housex-housex,housey-housey,housex*2,housex*2)
-
-
-
-
+function mouseClicked(){
+loop(snowfly=snowfly-2)
 }
