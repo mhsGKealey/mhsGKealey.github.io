@@ -1,50 +1,60 @@
-var x = 50
-var y =150
-var slide = 1
-var up = 0.5
-var melt = 0
-var xx = 0
-var snowfly = 800
-var snowfall = 400
 function setup() {
   // put setup code here
-  createCanvas(800,800);
+  createCanvas(1700,900);
 }
-
-
+var drive=1
 function draw() {
-  // put drawing code here
-  background(x-50, 29, 46);
 
-// The ground
-fill(46, 39, 25);
-rect(0, 700, 800, 800);
-
-// The sun
-fill(143, 21, 21);
-ellipse(x+xx, y, 100, 100);
-y=y-up
-x=x*2/1.98
-if(y<50){up=-up}
-// The snowman
-melt=170-x*0.5
-//stopping the melt
-if (melt<0){x=338}
-//making the sun continue moving
-if (x>337){xx=xx+2}
-print(melt);
-fill(245, 226, 226);
-ellipse(200, 700, 150, 170-x*0.5);
-ellipse(200, 600+x*0.3, 100, 120-x*0.35);
+background(47, 107, 55)
+fill(100,100,100)
 strokeWeight(0)
-ellipse(200, 520+x*0.55, 75, 90-x*0.27);
+rect(225,50,75,800,)
+rect(525,50,75,800,)
+rect(800,50,75,800,)
+rect(1100,50,75,800,)
+rect(1400,50,75,800,)
+rect(0,0,1700,50)
+strokeWeight(1)
 
-//flying snoball when clicked
-  ellipse(snowfly,snowfall,20,20)
+drawneighborhood()
 
 
+
+fill(255,0,0)
+rect(240,75+drive,25,25,)
+rect(240,30+drive,25,25,)
+rect(235,50+drive,35,35,)
+
+
+drive=drive*1.02
+print(drive)
 }
 
-function mouseClicked(){
-loop(snowfly=snowfly-2)
+function drawhouse(x,y){
+var x
+var y
+fill(67, 97, 55)
+rect (x-50,y-15,60,130)
+fill(161,85,3)
+rect(x,y,100,100,)
+line(x,y,x+100,y+100)
+line(x+100,y,x,y+100)
+}
+
+function drawblock(x,y){
+
+drawhouse(x+50,y+50)
+drawhouse(x+50,y+200)
+drawhouse(x+50,y+400)
+drawhouse(x+50,y+600)
+
+}
+function drawneighborhood(x,y){
+drawblock(50,100)
+drawblock(350,100)
+drawblock(640,100)
+drawblock(940,100)
+drawblock(1240,100)
+drawblock(1540,100)
+
 }
