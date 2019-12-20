@@ -1,110 +1,154 @@
-var x = 100
-var y = 100
-var size = 75
-var xspeed = 12
-var yspeed = 8
 
-var player1x = 15
-var player1y = 15
+//level tracker
+var level = 1
+//movement variables
+var x;
+var y;
+var grav = 1
+//pictures used
+var img;
+var ground1;
+var dirttow;
+var dirttow2;
+//collision detection
+var box1=false
+var box2=false
+var box3=false
+var box4=false
+var triangle=false
+var circle=false
+var box5=false
+var box6=false
+var box7=false
+var box8=false
+var circle2=false
 
-var player2x = 15
-var player2y = 735
-
-var padwidth = 150
-var padheight = 20
-
-var player1hit = false
-var player2hit = false
-
-var score1=0
-var score2=0
-
-
+function preload() {
+  //loading up my images
+  img=loadImage('alien.png')
+  ground1=loadImage('groundright.png')
+  dirttow=loadImage('dirt tower.png')
+  dirttow2=loadImage('dirt tower2.png')
+}
 
 function setup() {
   // put setup code here
-  createCanvas(600,800);
+  createCanvas(700,700);
+
+x=200
+y=500
 }
 
 function draw() {
-  background(50,100,)
-  // put drawing code here
-  fill(255,255,255)
-  strokeWeight(7)
-  fill(255,255,255)
-  line(0,400,600,400)
-  strokeWeight(1)
-  moveball()
-  bounce()
-  drawball()
-  drawplayer1()
-  drawplayer2()
-  movepaddle()
-  hitpaddle()
-  scoreboard()
+  // opening screen
+if(level == 1){
+background(10,10,10)
+fill(255,255,255)
+textSize(40)
+text("space run",200,250)
+}
+else if (level == 2) {
+  background(240,240,240)
+  strokeWeight(0)
+  noFill()
+  //player hitbox
+rect(x,y+grav,60,100)
+fill(150,50,100)
+//collision squares
+rect(100,500,150,600)
+rect(100,495,150,600)
+
+rect(0,400,100,600)
+rect(0,395,100,600)
+//
+noFill()
+triangle(600,600,700,500,700,600)
+//end level
+fill(0,255,0)
+ellipse(30,350,50,50)
+//collision code
+box1=collideRectRect(x,y+grav,60,100,100,500,150,600)
+box2=collideRectRect(x,y+grav,60,100,100,495,150,600)
+
+
+box3=collideRectRect(x,y+grav,60,100,0,400,100,600)
+box4=collideRectRect(x,y+grav,60,100,0,395,100,600)
+
+circle=collideRectCircle(x,y+grav,60,100,30,360,50,50)
+//images used in the level
+ image(img,x,y+grav)
+
+ image(ground1,300,200,600,600)
+
+}
+//ground
+ fill(150,50,100)
+ rect(0,600,700,700,)
+
+ if (level==3) {
+   fill(200,200,200)
+   rect(0,0,700,600)
+   //player
+   image(img,x,y+grav)
+//collision squares
+   rect(0,400,100,200)
+    rect(0,395,100,195)
+
+    rect(600,400,170,200)
+     rect(600,395,170,195)
+
+  image(dirttow,0-20,400,200,200)
+  box5=collideRectRect(x,y+grav,60,100,0,400,100,200)
+  box6=collideRectRect(x,y+grav,60,100,0,395,100,195)
+
+
+ image(dirttow2,600,400,170,200)
+ box7=collideRectRect(x,y+grav,60,100,600,400,170,200)
+ box8=collideRectRect(x,y+grav,60,100,600,395,170,195)
+
+fill(0,255,0)
+ellipse(650,350,50,50)
+circle2=collideRectCircle(x,y+grav,60,100,650,360,50,50)
+
 }
 
-
-function moveball(){
-  x=x+xspeed
-  y=y+yspeed
-}
-
-function bounce(){
-  if(x>550){xspeed=-xspeed}
-  if(x<50){xspeed=10}
-  if(y>800){y=400,x=300,xspeed=0,yspeed=0,score1=score1+1}
-  if(y<0){y=400,x=300,xspeed=0,yspeed=0,score2=score2+1}
-  if(keyIsDown(32)){xspeed=10,yspeed=10}
-}
-
-function drawball(){
-  fill(2,55,255)
-  ellipse(x,y,size)
-}
-
-function drawplayer1(){
-  rect(player1x,player1y,padwidth,padheight)
-}
-
-function drawplayer2(){
-  rect(player2x,player2y,padwidth,padheight)
-}
-
-//detect whether the ball hit either paddle
-function hitpaddle(){
-  player1hit=collideRectCircle(player1x,player1y,padwidth,padheight,x,y,size)
-
-  player2hit=collideRectCircle(player2x,player2y,padwidth,padheight,x,y,size)
-
-  if(player1hit==true){yspeed=10}
-  if(player2hit==true){yspeed=-10}
-}
-
-function movepaddle(){
-if(keyIsDown(68)){player1x=player1x+15}
-if(keyIsDown(65)){player1x=player1x-15}
-if(keyIsDown(39)){player2x=player2x+15}
-if(keyIsDown(37)){player2x=player2x-15}
-if(keyIsDown(83)){player1y=player1y+7}
-if(keyIsDown(87)){player1y=player1y-7}
-if(keyIsDown(38)){player2y=player2y-7}
-if(keyIsDown(40)){player2y=player2y+7}
-if(player2y<500){player2y=player2y+7}
-if(player1y>300){player1y=player1y-7}
-if(player1x<0){player1x=player1x+15}
-if(player1x>490){player1x=player1x-15}
-if(player2x<0){player2x=player2x+15}
-if(player2x>490){player2x=player2x-15}
-if(player2y>775){player2y=player2y-7}
-if(player1y<25){player1y=player1y+7}
-}
-function scoreboard(){
-  fill(255,255,255)
-  textSize(10)
-  text("press space to move ball again",220,400)
+if(level==4){
+  fill(100,255,0)
+  rect(0,0,700,700)
   textSize(40)
+  fill(0,0,0)
+  text('you win!!',270,350)
+}
 
-  text(score1,550,300)
-  text(score2,550,500)
+//gravity
+ if(y+grav>500){grav=grav-2,y}
+ grav = grav+2
+
+
+//what to do in a collision
+if(box1==true){x=x+7}
+if(box2==true){grav=grav-2,y+300}
+if(box3==true){x=x+7}
+if(box4==true){grav=grav-2,y+300}
+if(triangle==true){grav=grav-5}
+if(circle==true){level=3}
+if(box5==true){x=x+7}
+if(box6==true){grav=grav-2}
+if(box7==true){x=x-7}
+if(box8==true){grav=grav-2}
+if(circle2==true){level=4}
+
+if(keyIsDown(65)){x=x-7}
+if(keyIsDown(68)){x=x+7}
+if(keyIsDown(87)){y=y-5}
+
+print(level)
+
+
+
+}
+function keyPressed(){
+  if(keyIsDown(13)){level=2}
+
+
 }
